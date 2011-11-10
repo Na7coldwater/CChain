@@ -38,7 +38,7 @@ var CCanvas = (function() {
       }
       else if(ele.get instanceof Function)
       {
-        canvas = ele.get(0)
+        canvas = ele.get(0);
         if(!isCanvas(canvas))
         {
           canvas = null;
