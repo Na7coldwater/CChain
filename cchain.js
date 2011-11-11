@@ -1,4 +1,7 @@
 var CCanvas = (function() {
+  var PI = Math.PI,
+      TAU = PI * 2;
+  
   function isCanvas(obj)
   {
     return obj instanceof Element && obj.nodeName === "CANVAS";
@@ -61,10 +64,6 @@ var CCanvas = (function() {
     return child;
   };
   
-  CCanvas.prototype.end = function() {
-    return this.prevObject;
-  };
-  
   ["strokeStyle", "fillStyle"].forEach(function(name) {
     CCanvas.prototype[name] = function() {
       if(arguments.length > 0)
@@ -98,6 +97,20 @@ var CCanvas = (function() {
     
     return this;
   };
+  
+  CCanvas.prototype.end = function() {
+    return this.prevObject;
+  };
+  
+  CCanvas.prototype.circle = function(x, y, radius)
+  {
+    return this.arc(x, y, radius, 0, TAU);
+  }
+  
+  CCanvas.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise)
+  {
+    this.context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
+  }
   
   var lib = function(ele)
   {
