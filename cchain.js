@@ -47,6 +47,10 @@ var CCanvas = (function() {
           canvas = null;
         }
       }
+      else if(ele instanceof CChain)
+      {
+        return CCanvas.prototype.push.apply(ele);
+      }
     }
     if(!canvas)
     {
@@ -59,7 +63,7 @@ var CCanvas = (function() {
   }
   
   CCanvas.prototype.push = function() {
-    var child = createChildObject(this)
+    var child = createChildObject(this);
     child.prevObject = this;
     return child;
   };
