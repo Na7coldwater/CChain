@@ -105,12 +105,19 @@ var CCanvas = (function() {
   CCanvas.prototype.circle = function(x, y, radius)
   {
     return this.arc(x, y, radius, 0, TAU);
-  }
+  };
   
   CCanvas.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise)
   {
     this.context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
-  }
+    return this;
+  };
+  
+  CCanvas.prototype.path = function()
+  {
+    this.context.beginPath();
+    return this;
+  };
   
   var lib = function(ele)
   {
