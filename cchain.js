@@ -78,7 +78,7 @@ var CCanvas = (function() {
       }
       else
       {
-        return this[name];
+        return this["_" + name];
       }
     }
   });
