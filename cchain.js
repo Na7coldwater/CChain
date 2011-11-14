@@ -117,6 +117,13 @@ var CCanvas = (function() {
     return this;
   };
   
+  CCanvas.prototype.fillRect = function(x, y, width, height)
+  {
+    var context = this.context;
+    context.fillStyle = this._fillStyle;
+    context.fillRect(x, y, width, height);
+  };
+  
   CCanvas.prototype.path = function()
   {
     this.context.beginPath();
