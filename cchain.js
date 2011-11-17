@@ -1,4 +1,6 @@
 var CCanvas = (function() {
+  "use strict";
+  
   var PI = Math.PI,
       TAU = PI * 2;
   
@@ -123,6 +125,11 @@ var CCanvas = (function() {
     context.fillStyle = this._fillStyle;
     context.fillRect(x, y, width, height);
   };
+  
+  CCanvas.prototype.clearRect = function(x, y, width, height)
+  {
+    this.context.clearRect(x, y, width, height);
+  }
   
   CCanvas.prototype.path = function()
   {
