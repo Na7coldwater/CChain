@@ -19,7 +19,7 @@ var CCanvas = (function() {
     return args[0];
   }
   
-  function CCanvas(ele)
+  function CCanvas(ele, context)
   {
     if(!(this instanceof CCanvas))
     {
@@ -31,12 +31,14 @@ var CCanvas = (function() {
     {
       if(typeof ele === "string")
       {
-        canvas = document.getElementById(ele);
+        canvas = ((context && context.document)?context.document:document)
+                   .getElementById(ele);
       }
       else if(isCanvas(ele))
       {
         canvas = ele;
       }
+      /* jQuery and other javascript libraries */
       else if(ele[0] && isCanvas(ele[0]))
       {
         canvas = ele[0];
@@ -137,9 +139,9 @@ var CCanvas = (function() {
     return this;
   };
   
-  var lib = function(ele)
+  var lib = function(ele, context)
   {
-    return new CCanvas(ele);
+    return new CCanvas(ele, context);
   };
   
   return lib;
