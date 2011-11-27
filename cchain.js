@@ -1,4 +1,4 @@
-var CCanvas = (function() {
+var CChain = (function() {
   "use strict";
   
   var PI = Math.PI,
@@ -19,11 +19,11 @@ var CCanvas = (function() {
     return args[0];
   }
   
-  function CCanvas(ele, context)
+  function CChain(ele, context)
   {
-    if(!(this instanceof CCanvas))
+    if(!(this instanceof CChain))
     {
-      return new CCanvas(ele);
+      return new CChain(ele);
     }
     var canvas;
     
@@ -53,7 +53,7 @@ var CCanvas = (function() {
       }
       else if(ele instanceof CChain)
       {
-        return CCanvas.prototype.push.apply(ele);
+        return CChain.prototype.push.apply(ele);
       }
     }
     if(!canvas)
@@ -66,14 +66,14 @@ var CCanvas = (function() {
     this._strokeStyle = context.strokeStyle;
   }
   
-  CCanvas.prototype.push = function() {
+  CChain.prototype.push = function() {
     var child = createChildObject(this);
     child.prevObject = this;
     return child;
   };
   
   ["strokeStyle", "fillStyle"].forEach(function(name) {
-    CCanvas.prototype[name] = function() {
+    CChain.prototype[name] = function() {
       if(arguments.length > 0)
       {
         var child = this.push();
@@ -87,7 +87,7 @@ var CCanvas = (function() {
     }
   });
   
-  CCanvas.prototype.applyStyles = function() {
+  CChain.prototype.applyStyles = function() {
     var context = this.context;
     
     context.fillStyle = this._fillStyle;
@@ -96,7 +96,7 @@ var CCanvas = (function() {
     return this;
   };
   
-  CCanvas.prototype.stroke = function() {
+  CChain.prototype.stroke = function() {
     var context = this.context;
     
     context.strokeStyle = this._strokeStyle;
@@ -106,34 +106,34 @@ var CCanvas = (function() {
     return this;
   };
   
-  CCanvas.prototype.end = function() {
+  CChain.prototype.end = function() {
     return this.prevObject;
   };
   
-  CCanvas.prototype.circle = function(x, y, radius)
+  CChain.prototype.circle = function(x, y, radius)
   {
     return this.arc(x, y, radius, 0, TAU);
   };
   
-  CCanvas.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise)
+  CChain.prototype.arc = function(x, y, radius, startAngle, endAngle, anticlockwise)
   {
     this.context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
     return this;
   };
   
-  CCanvas.prototype.fillRect = function(x, y, width, height)
+  CChain.prototype.fillRect = function(x, y, width, height)
   {
     var context = this.context;
     context.fillStyle = this._fillStyle;
     context.fillRect(x, y, width, height);
   };
   
-  CCanvas.prototype.clearRect = function(x, y, width, height)
+  CChain.prototype.clearRect = function(x, y, width, height)
   {
     this.context.clearRect(x, y, width, height);
   }
   
-  CCanvas.prototype.path = function()
+  CChain.prototype.path = function()
   {
     this.context.beginPath();
     return this;
@@ -141,7 +141,7 @@ var CCanvas = (function() {
   
   var lib = function(ele, context)
   {
-    return new CCanvas(ele, context);
+    return new CChain(ele, context);
   };
   
   return lib;
